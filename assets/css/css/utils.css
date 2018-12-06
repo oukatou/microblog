@@ -1,0 +1,193 @@
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div{margin:0;padding:0;border:0;} 
+body{background-color:#6a6f83;color:#333;font-size:15px; margin-top:5px;} 
+ 
+ul,ol{list-style-type:none;} 
+select,input,img,select{vertical-align:middle;} 
+ 
+a{text-decoration:none;} 
+a{color:rgb(255, 255, 255);} 
+a:hover,a:active,a:focus{color:#fff;text-decoration:none;}
+
+body {
+    color: #000;
+    font-family: Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding-top: 80px;
+    padding-bottom: 50px;
+}
+.alert{
+    height: 30px;
+    padding: 4px;
+}
+.container{
+    background-color: rgba(55,60,82,0.25);
+    padding: 0;
+}
+.middle,.leftnav,.right{
+    float: left;
+    position: relative;
+}
+.middle{
+    width: 100%;
+    padding: 0 250px 0 200px;
+}
+.leftnav{
+    width: 200px;
+    margin-left: -100%;
+}
+.leftnav ul li{
+    line-height: 34px;
+    height: 34px;
+    font-size: 14px;
+    font-weight: bold;
+    background: transparent;
+    
+}
+.leftnav ul li a span{
+    display: inline-block;
+    width: 100%;
+    padding: 0 0 0 15px;
+    cursor: pointer;
+}
+.leftnav ul li span:hover{
+    background-color: rgba(255,255,255,0.2);
+}
+.active span{
+    background-color: rgba(255,255,255,0.2);
+}
+.right{
+    width: 250px;
+    margin-left: -250px;
+    padding: 0 10px;
+}
+.right .user_info{
+    text-align: center;
+    height: 100px;
+    background: #f5f5f5;
+    border-radius: 2px;
+}
+.user_atten{
+    margin-top: 5px;
+    overflow: hidden;
+}
+.user_atten li{
+    float: left;
+    width: 33.33%;
+    padding: 7px 0;
+
+}
+.user_atten a{
+    color: #333;
+    display: block;
+    border-left: solid 1px #d9d9d9;
+}
+.user_atten a:hover{
+    color: #eb7350;
+}
+.user_atten span{
+    display: block;
+    font-size: 12px;
+    color: #808080;
+}
+.name{
+    padding: 10px;
+}
+.send_wb h5{
+    color: #333;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: left;
+}
+.input{
+    border: 1px #ccc solid;
+    box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.15) inset;
+    background: #fff;
+}
+.input.clicked{
+    border-color: #ffc09f;
+}
+.send_wb textarea{
+    resize: none;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+.send-btn{
+    background: #ffc09f;
+    width: 80;
+    height: 28px;
+    line-height: 28px;
+    color: #fff;
+    font-size: 14px;
+    border-color: #ffc09f;
+    border-radius: 2px;
+    padding: 0;
+    margin: 7px 7px 0;
+}
+.func_area{
+    margin-top: 3px;
+    text-align: right;
+}
+.cardwrap{
+    margin-bottom: 10px;
+    position: relative;
+}
+.cardwrap .dropdown-menu{
+    left: -85px;
+    min-width: 55px;
+}
+.cardwrap a{
+    padding: 7px 13px;
+    font-size: 12px;
+}
+.screen_box{
+    color: #808080;
+    position: absolute;
+    right: 13px;
+    top: 10px;
+}
+.screen_box .arrow_down:hover{
+    color: #eb7350;
+    cursor: pointer;
+}
+.wb_info{
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+.wb_info .title{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 7px;
+}
+.time{
+    font-size: 12px;
+    color: #808080;
+}
+.wb_info .content{
+    line-height: 23px;
+    font-size: 14px;
+}
+.handle{
+    overflow: hidden;
+}
+.handle li{
+    border-top: 1px solid #d9d9d9;
+    background: #f5f5f5;
+    float: left;
+    width: 25%;
+    text-align: center;
+    padding: 7px 0;
+}
+.handle span{
+    display: block;
+    font-size: 12px;
+    color: #808080;
+    border-left: 1px solid #d9d9d9;
+    height: 15px;
+}
+.handle span:hover{
+    cursor: pointer;
+    color: #eb7350;
+}

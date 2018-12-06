@@ -1,0 +1,32 @@
+<% posts.forEach(function(post, index) { %>
+  <div class="cardwrap" wid="<%= post._id%>">
+    <div class="screen_box">
+      <% if (user && user.username == post.user) {%>
+        <span class="glyphicon glyphicon-chevron-down arrow_down" data-toggle="dropdown"></span>
+        <ul class="dropdown-menu">
+          <li><a class="delete-link" wb-id="<%= post._id%>">删除此微博</a></li>
+          <li><a href="">编辑此微博</a></li>
+          <li><a href="">加标签</a></li>
+        </ul>
+      <% } %>
+    </div>
+    <div class="wb_info">
+      <a href="/user/<%= post.user %>" class="title"><%= post.user %></a>
+      <div class="time"><%= post.time %></div>
+      <p class="content"><%= post.post %></p>
+    </div>
+    <div class="handle">
+      <ul>
+          <% if (user && user.username == post.user) {%>
+            <li><span class=''>阅读3</span></li>
+          <% }else{ %> 
+            <li><span class='glyphicon glyphicon-star-empty'>收藏</span></li>
+          <% } %>  
+          <li><span class='glyphicon glyphicon-share'>转发</span></li>
+          <li><span class="glyphicon glyphicon-comment">评论</span></li>
+          <li><span class="glyphicon glyphicon-thumbs-up">点赞</span></li>
+      </ul>
+    </div>
+  </div>  
+<%}) %>
+  

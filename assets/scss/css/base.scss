@@ -1,0 +1,31 @@
+$hoverColor: #eb7350;
+body, ul, ol, li, p, h1, h2, h3, h4, h5, h6, form, fieldset, table, td, img, div {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+body {
+  background-color: #6a6f83;
+  font-size: 15px;
+  margin-top: 5px;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+  padding-top: 80px;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+select, input, img, select {
+  vertical-align: middle;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+  &:hover, &:active, &:focus {
+    color: #fff;
+    text-decoration: none;
+  }
+}
