@@ -60,6 +60,19 @@ class Db{
             })
         })
     }
+    updateOne(collectionName, con, json){
+        return new Promise((resolve, reject)=>{
+            this.connect().then(db=>{
+                db.collection(collectionName).updateOne(con,{$set: json},(err,result)=>{
+                    if(err){
+                        reject(err)
+                    }else{
+                        resolve(result)
+                    }
+                });
+            })
+        })
+    }
     saveOne(collectionName, json){
         return new Promise((resolve, reject)=>{
             this.connect().then(db=>{

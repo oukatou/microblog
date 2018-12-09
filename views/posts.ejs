@@ -5,7 +5,7 @@
         <span class="glyphicon glyphicon-chevron-down arrow_down" data-toggle="dropdown"></span>
         <ul class="dropdown-menu">
           <li><a class="delete-link" wb-id="<%= post._id%>">删除此微博</a></li>
-          <li><a href="">编辑此微博</a></li>
+          <li><a href="/edit?id=<%= post._id%>">编辑此微博</a></li>
           <li><a href="">加标签</a></li>
         </ul>
       <% } %>

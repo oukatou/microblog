@@ -12,18 +12,33 @@ class Post {
             post: this.post,
             time: this.time
         }
-        return new Promise(async reslove => {
+        return new Promise(async resolve => {
             let result = await db.saveOne('posts', post);
-            reslove(result)
+            resolve(result)
+        })
+    }
+    static update(wb_id, post){
+        return new Promise(async resolve =>{
+            let result = await db.updateOne('posts',{'_id': mongoose.Types.ObjectId(wb_id)},post)
+            resolve(result)
+        })
+    }
+    static findOne(wb_id){
+        let info = {
+            _id: mongoose.Types.ObjectId(wb_id)
+        }
+        return new Promise(async resolve=>{
+            let result = await db.findOne('posts', info)
+            resolve(result)
         })
     }
     static remove(wb_id) {
         let info = {
             _id: mongoose.Types.ObjectId(wb_id)
         }
-        return new Promise(async reslove => {
+        return new Promise(async resolve => {
             let result = await db.removeOne('posts', info);
-            reslove(result)
+            resolve(result)
         })
     }
     static get(user) {
@@ -31,9 +46,9 @@ class Post {
         if(user){
             query.user = user
         }
-        return new Promise(async reslove => {
+        return new Promise(async resolve => {
             let posts = await db.find('posts', query);
-            reslove(posts)
+            resolve(posts)
         })
     }
 }
