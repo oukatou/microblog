@@ -18,13 +18,19 @@
     <div class="handle">
       <ul>
           <% if (user && user.username == post.user) {%>
-            <li><span class=''>阅读3</span></li>
+            <li><span class=''><a href="#"> 阅读3</a></span></li>
           <% }else{ %> 
-            <li><span class='glyphicon glyphicon-star-empty'>收藏</span></li>
+            <li><span><a class='glyphicon glyphicon-star-empty' href="#">收藏</a></span></li>
           <% } %>  
-          <li><span class='glyphicon glyphicon-share'>转发</span></li>
-          <li><span class="glyphicon glyphicon-comment">评论</span></li>
-          <li><span class="glyphicon glyphicon-thumbs-up">点赞</span></li>
+          <li><span><a class='glyphicon glyphicon-share' href="#">转发</a></span></li>
+          <li><span><a class='glyphicon glyphicon-comment' href="#">评论</a></span></li>
+          <% if (user && post.like_id) {%>
+            <li><span><a data-likeable-id='<%= post._id%>' data-like-id='<%= post.like_id%>'class='liked glyphicon glyphicon-heart' href="#">点赞</a></span></li>
+          <% }else if(user){ %>
+            <li><span><a data-likeable-id='<%= post._id%>' class='not-liked glyphicon glyphicon-heart-empty' href="#">点赞</a></span></li>
+          <% }else{ %>  
+            <li><span><a data-likeable-id='<%= post._id%>' class='glyphicon glyphicon-heart-empty' href="/login">点赞</a></span></li>
+          <% } %>  
       </ul>
     </div>
   </div>  
