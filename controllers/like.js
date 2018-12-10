@@ -1,7 +1,12 @@
 let Like = require('../models/like')
+let Post = require('../models/post')
 const like = async (ctx)=>{
     let likeable_id = ctx.request.body.likeable_id;
     let currentUser  = ctx.session.userinfo;
+    let post = await Post.findOne(likeable_id)
+    let liked = post.liked
+    liked++
+    let result = await Post.update(likeable_id,{liked})
     let like_id=0;
     let likes = await Like.get()
     for(let i = 0; i< likes.length; i++){
@@ -11,20 +16,27 @@ const like = async (ctx)=>{
         }
     }
     like_id++
-    let like = new Like(currentUser.username,likeable_id,like_id,)
-    let result = await like.save()
-    if (result.result.n == 1){
+    let like = new Like(currentUser.username,likeable_id,like_id)
+    let liked_result = await like.save()
+    if (liked_result.result.n == 1 && result.result.n == 1){
         ctx.body =  {success: true,
-                     like_id: like_id}
+                     liked,
+                     like_id}
     }
 
 }
 const not_like = async (ctx)=>{
     let like_id = ctx.request.body.like_id;
-    let result = await Like.remove(like_id)
-    if (result.result.n == 1){
+    let likeable_id = ctx.request.body.likeable_id
+    let post = await Post.findOne(likeable_id)
+    let liked = post.liked
+    liked--
+    let result = await Post.update(likeable_id,{liked})
+    let not_liked_result = await Like.remove(like_id)
+    if (result.result.n == 1 && not_liked_result.result.n == 1){
         ctx.body = {
-            success: true
+            success: true,
+            liked
         }
     }
 }

@@ -18,6 +18,8 @@ $('.delete-link').click(function(){
                 $('[wid=' + result.wid + ']').fadeOut('fast').queue(function() {
                     $(this).remove();
                 })
+                let count = Number($('.count').text())
+                $('.count').text(--count)
             }
         }
     })
@@ -33,6 +35,7 @@ $(document).on('click','.not-liked',(e)=>{
             if(result.success){
                 $link.removeClass('not-liked glyphicon-heart-empty').addClass('liked glyphicon-heart')
                 $link.data('likeId',result.like_id)
+                $link.find('span').text(' '+ result.liked)
             }
         }
     })
@@ -43,10 +46,15 @@ $(document).on('click','.liked',(e)=>{
     $.ajax({
         url: '/not_like',
         type: 'post',
-        data: {like_id: $link.data('like-id')},
+        data: {like_id: $link.data('like-id'),
+               likeable_id: $link.data('likeable-id')},
         success(result){
             if(result.success){
                 $link.removeClass('liked glyphicon-heart').addClass('not-liked glyphicon-heart-empty')
+                if(result.liked)
+                    $link.find('span').text(' '+ result.liked)
+                else
+                    $link.find('span').text(' 赞')
             }
         }
     })

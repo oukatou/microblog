@@ -186,11 +186,9 @@
     text-align: center;
     padding: 7px 0;
   }
-  span {
-    display: block;
-    border-left: 1px solid #d9d9d9;
     a{
-      display: inline-block;
+      display: block;
+      border-left: 1px solid #d9d9d9;
       font-size: 12px;
       color: #808080;
       height: 15px;
@@ -198,8 +196,10 @@
         cursor: pointer;
         color: $hoverColor;
       }
+      span{
+        vertical-align: text-top;
+      }
     }
-  }
   .liked{
     color: $hoverColor
   }

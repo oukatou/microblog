@@ -20,6 +20,7 @@ const userposts = async (ctx)=>{
     }
     await ctx.render('user_frame',{
         posts: posts,
+        posts_count: posts.length,
         username: username
     })
 }

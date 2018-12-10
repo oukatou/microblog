@@ -18,18 +18,34 @@
     <div class="handle">
       <ul>
           <% if (user && user.username == post.user) {%>
-            <li><span class=''><a href="#"> 阅读3</a></span></li>
+            <li><a href="#"><span> 阅读3</span></a></li>
           <% }else{ %> 
-            <li><span><a class='glyphicon glyphicon-star-empty' href="#">收藏</a></span></li>
+            <li><a class='glyphicon glyphicon-star-empty' href="#"><span>收藏</span></a></li>
           <% } %>  
-          <li><span><a class='glyphicon glyphicon-share' href="#">转发</a></span></li>
-          <li><span><a class='glyphicon glyphicon-comment' href="#">评论</a></span></li>
+          <li><a class='glyphicon glyphicon-share' href="#"><span>转发</span></a></li>
+          <li><a class='glyphicon glyphicon-comment' href="#"><span>评论</span></a></li>
           <% if (user && post.like_id) {%>
-            <li><span><a data-likeable-id='<%= post._id%>' data-like-id='<%= post.like_id%>'class='liked glyphicon glyphicon-heart' href="#">点赞</a></span></li>
+            <li><a data-likeable-id='<%= post._id%>' data-like-id='<%= post.like_id%>'class='liked glyphicon glyphicon-heart' href="#"><span> <%= post.liked%></span></a></li>
           <% }else if(user){ %>
-            <li><span><a data-likeable-id='<%= post._id%>' class='not-liked glyphicon glyphicon-heart-empty' href="#">点赞</a></span></li>
+            <li>
+              <a data-likeable-id='<%= post._id%>' class='not-liked glyphicon glyphicon-heart-empty' href="#">
+                <% if(post.liked){%>
+                  <span><%=post.liked%></span>
+                <%} else{%>
+                  <span>赞</span>
+                <% } %>
+              </a>
+            </li>
           <% }else{ %>  
-            <li><span><a data-likeable-id='<%= post._id%>' class='glyphicon glyphicon-heart-empty' href="/login">点赞</a></span></li>
+            <li>
+              <a data-likeable-id='<%= post._id%>' class='glyphicon glyphicon-heart-empty' href="/login">
+                <% if(post.liked){%>
+                  <span><%= post.liked%></span>
+                <%} else{%>
+                  <span>赞</span>
+                <% } %>
+              </a>
+            </li>
           <% } %>  
       </ul>
     </div>

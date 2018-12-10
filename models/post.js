@@ -10,6 +10,7 @@ class Post {
         let post = {
             user: this.user,
             post: this.post,
+            liked: 0,
             time: this.time
         }
         return new Promise(async resolve => {
