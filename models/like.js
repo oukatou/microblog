@@ -23,9 +23,13 @@ class Like{
             resolve(result)
         })
     }
-    static get(){
+    static get(username){
         return new Promise(async resolve=>{
-            let result = await db.find('like',{})
+            let query = {};
+            if(username){
+                query.user = username
+            }
+            let result = await db.find('like',query)
             resolve(result)
         })
     }

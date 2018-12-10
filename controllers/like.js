@@ -1,5 +1,24 @@
 let Like = require('../models/like')
 let Post = require('../models/post')
+const likes = async (ctx)=>{
+    let username = ctx.params.username;
+    let likes = await Like.get(username)
+    let liked_posts = []
+    for(let i = 0; i< likes.length; i++){
+        let id = likes[i].likeable_id
+        let post = await Post.findOne(id)
+        if(post){
+            Object.assign(post,{like_id:likes[i].like_id})
+            liked_posts.unshift(post)
+        }
+    }
+    let posts = await Post.get(username);
+    await ctx.render('like_frame',{
+        posts: liked_posts,
+        posts_count: posts.length,
+        username: username
+    })
+}
 const like = async (ctx)=>{
     let likeable_id = ctx.request.body.likeable_id;
     let currentUser  = ctx.session.userinfo;
@@ -41,6 +60,7 @@ const not_like = async (ctx)=>{
     }
 }
 module.exports={
+    'GET /like/:username': likes,
     'POST /like': like,
     'POST /not_like': not_like
 }
