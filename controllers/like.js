@@ -1,7 +1,13 @@
-let Like = require('../models/like')
-let Post = require('../models/post')
+const Like = require('../models/like')
+const Post = require('../models/post')
+const User = require('../models/user')
 const likes = async (ctx)=>{
     let username = ctx.params.username;
+    let user = await User.get(username)
+    if(!user){
+        ctx.flash={ error: '用户不存在' };
+        return ctx.redirect('/')
+    }
     let likes = await Like.get(username)
     let liked_posts = []
     for(let i = 0; i< likes.length; i++){
@@ -41,6 +47,9 @@ const like = async (ctx)=>{
         ctx.body =  {success: true,
                      liked,
                      like_id}
+    }else{
+        ctx.body = {success: false};
+        return;
     }
 
 }
@@ -57,6 +66,9 @@ const not_like = async (ctx)=>{
             success: true,
             liked
         }
+    }else{
+        ctx.body = {success: false};
+        return;
     }
 }
 module.exports={

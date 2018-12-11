@@ -18,6 +18,7 @@ const checkLogin = async (ctx,next)=>{
 module.exports = {
     'GET /login': checkNotLogin,
     "GET /reg": checkNotLogin,
-    "GET /logout": checkLogin
+    "GET /logout": checkLogin,
+    'GET /edit': checkLogin
 
 }
