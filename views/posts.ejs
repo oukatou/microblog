@@ -19,13 +19,18 @@
       <ul>
           <% if (user && user.username == post.user) {%>
             <li><a href="#"><span> 阅读3</span></a></li>
-          <% }else{ %> 
-            <li><a class='glyphicon glyphicon-star-empty' href="#"><span>收藏</span></a></li>
-          <% } %>  
+          <% } else if(user && post.collect_id){ %> 
+            <li><a data-collectable-id='<%= post._id%>' data-collect-id='<%= post.collect_id%>' class='collected glyphicon glyphicon-star' href="#"><span>收藏</span></a></li>
+          <% } else if (user) {%>  
+            <li><a data-collectable-id='<%= post._id%>' class='not-collected glyphicon glyphicon-star-empty' href="#"><span>收藏</span></a></li>
+          <% } else {%>
+            <li><a class='glyphicon glyphicon-star-empty' href="/login"><span>收藏</span></a></li>
+          <% } %>
+
           <li><a class='glyphicon glyphicon-share' href="#"><span>转发</span></a></li>
           <li><a class='glyphicon glyphicon-comment' href="#"><span>评论</span></a></li>
           <% if (user && post.like_id) {%>
-            <li><a data-likeable-id='<%= post._id%>' data-like-id='<%= post.like_id%>'class='liked glyphicon glyphicon-heart' href="#"><span> <%= post.liked%></span></a></li>
+            <li><a data-likeable-id='<%= post._id%>' data-like-id='<%= post.like_id%>' class='liked glyphicon glyphicon-heart' href="#"><span> <%= post.liked%></span></a></li>
           <% }else if(user){ %>
             <li>
               <a data-likeable-id='<%= post._id%>' class='not-liked glyphicon glyphicon-heart-empty' href="#">

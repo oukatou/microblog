@@ -59,3 +59,33 @@ $(document).on('click','.liked',(e)=>{
         }
     })
 })
+
+$(document).on('click','.not-collected',(e)=>{
+    $link = $(e.currentTarget);
+    e.preventDefault()
+    $.ajax({
+        url: '/collect',
+        type: 'post',
+        data: {collectable_id: $link.data('collectable-id')},
+        success(result){
+            if(result.success){
+                $link.removeClass('not-collected glyphicon-star-empty').addClass('collected glyphicon-star')
+                $link.data('collectId',result.collect_id)
+            }
+        }
+    })
+})
+$(document).on('click','.collected',(e)=>{
+    $link = $(e.currentTarget);
+    e.preventDefault()
+    $.ajax({
+        url: '/not_collect',
+        type: 'post',
+        data: {collect_id: $link.data('collect-id')},
+        success(result){
+            if(result.success){
+                $link.removeClass('collected glyphicon-star').addClass('not-collected glyphicon-star-empty')
+            }
+        }
+    })
+})

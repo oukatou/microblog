@@ -1,25 +1,25 @@
 const db = require('../models/db');
-class Like{
-    constructor(user,likeable_id,like_id){
+class Collect{
+    constructor(user,collectable_id,collect_id){
         this.username = user;
-        this.likeable_id = likeable_id;
-        this.like_id = like_id;
+        this.collectable_id = collectable_id;
+        this.collect_id = collect_id;
     }
     save(){
-        let like = {
-            like_id: this.like_id,
+        let collect = {
+            collect_id: this.collect_id,
             user: this.username,
-            likeable_id: this.likeable_id
+            collectable_id: this.collectable_id
         }
         return new Promise(async resolve=>{
-            let result = await db.saveOne('like',like)
+            let result = await db.saveOne('collect',collect)
             resolve(result)
         })
     }
     static remove(id){
         return new Promise(async resolve=>{
-            let info = {like_id: Number(id)}
-            let result = await db.removeOne('like', info)
+            let info = {collect_id: Number(id)}
+            let result = await db.removeOne('collect', info)
             resolve(result)
         })
     }
@@ -29,23 +29,23 @@ class Like{
             if(username){
                 query.user = username
             }
-            let result = await db.find('like',query)
+            let result = await db.find('collect',query)
             resolve(result)
         })
     }
     static getOne(info){
         return new Promise(async resolve=>{
-            let result = await db.findOne('like',info)
+            let result = await db.findOne('collect',info)
             resolve(result)
         })
     }
     static findOne(id){
         return new Promise(async resolve=>{
-            let info = {like_id: Number(id)}
-            let result = await db.findOne('like',info)
+            let info = {collect_id: Number(id)}
+            let result = await db.findOne('collect',info)
             resolve(result)
         })
     }
 }
 
-module.exports = Like
+module.exports = Collect

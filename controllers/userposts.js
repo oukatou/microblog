@@ -1,6 +1,7 @@
 const User = require('../models/user')
 const Post = require('../models/post')
 const Like = require('../models/like')
+const Collect = require('../models/collect')
 const userposts = async (ctx)=>{
     let username = ctx.params.username
     let user = await User.get(username)
@@ -17,6 +18,12 @@ const userposts = async (ctx)=>{
             let like = await Like.getOne({likeable_id:id,user: currentUser.username})
             if(like){
                 Object.assign(posts[i],{like_id: like.like_id})
+            }
+            if(currentUser){
+                let collect = await Collect.getOne({collectable_id:id,user: currentUser.username})
+                if(collect){
+                    Object.assign(post,{collect_id: collect.collect_id})
+                }
             }
         }
     }
