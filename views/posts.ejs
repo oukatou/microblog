@@ -28,7 +28,19 @@
           <% } %>
 
           <li><a class='glyphicon glyphicon-share' href="#"><span>转发</span></a></li>
-          <li><a class='glyphicon glyphicon-comment' href="#"><span>评论</span></a></li>
+          <li class="comment">
+              <% if(user) { %>
+                <a class='comment glyphicon glyphicon-comment' href="javascript:void(0);">
+              <%} else {%>
+                <a class='glyphicon glyphicon-comment' href="/login">
+              <% } %>
+                <% if(post.commented){%>
+                  <span class='comment'><%=post.commented%></span>
+                <%} else {%>
+                  <span class='comment'>评论</span>
+                <% } %>
+            </a>
+          </li>
           <% if (user && post.like_id) {%>
             <li><a data-likeable-id='<%= post._id%>' data-like-id='<%= post.like_id%>' class='liked glyphicon glyphicon-heart' href="#"><span> <%= post.liked%></span></a></li>
           <% }else if(user){ %>
@@ -53,6 +65,19 @@
             </li>
           <% } %>  
       </ul>
+    </div>
+    <div class="feed_box" style="display:block">
+      <div class="feed_publish">
+        <div class="input">
+          <textarea name="" id="" required></textarea>
+              <div class="btn">
+                <a href="javascript:void(0)" onclick="return false">评论</a>
+              </div>
+        </div>
+      </div>
+      <div class="feed_list">
+
+      </div>
     </div>
   </div>  
 <%}) %>

@@ -88,32 +88,36 @@
   font-size: 16px;
   line-height: 22px;
   text-align: left;
+  textarea {
+    background: transparent;
+  }
 }
 
-.input {
+.send_wb .input {
   border: 1px #ccc solid;
   box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.15) inset;
   background: #fff;
   &.clicked {
-    border-color: #ffc09f;;
+    border-color: #fa7d3c;
+    outline: #eb7350 auto 5px;
   }
 }
 
-.send_wb textarea {
+textarea {
   resize: none;
   border: none;
   outline: none;
-  background: transparent;
+  width: 100%;
 }
 
 .send-btn {
-  background: #ffc09f;
+  background: #ff8140;
   width: 80;
   height: 28px;
   line-height: 28px;
   color: #fff;
   font-size: 14px;
-  border-color: #ffc09f;
+  border-color: #ff8140;
   border-radius: 2px;
   padding: 0;
   margin: 7px 7px 0;
@@ -153,7 +157,7 @@
 
 .wb_info {
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: #fff;
   .title {
     display: inline-block;
     font-size: 14px;
@@ -180,7 +184,7 @@
   overflow: hidden;
   li {
     border-top: 1px solid #d9d9d9;
-    background: #f5f5f5;
+    background: #fff;
     float: left;
     width: 25%;
     text-align: center;
@@ -203,4 +207,37 @@
   .liked,.collected{
     color: $hoverColor
   }
+}
+.feed_box{
+  overflow: hidden;
+  background-color: #f2f2f5;
+  padding: 16px 6px 6px;
+  border: 1px solid #d9d9d9;
+  .input{
+    height:60px
+  }
+  textarea{
+    line-height: 18px;
+    height: 27px;
+    padding:5px 2px 0px 6px;
+    &:focus{
+      border-color: #fa7d3c;
+      outline: #eb7350 auto 5px;
+    }
+  }
+  .btn{
+    position: absolute;
+    right: 8px;
+    height: 27px;
+    padding: 3px 10px;
+    background-color: #ff8140;    
+    margin: 5px 5px 0;
+    &:hover{
+      background-color: $hoverColor;
+    }
+  }
+  .feed_list{
+
+  }
+
 }

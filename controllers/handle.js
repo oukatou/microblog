@@ -44,12 +44,13 @@ const doedit = async (ctx)=>{
         return ctx.redirect('/')
     }
     let post = await Post.findOne(id)
-    if(post && post.username != currentUser.username){
+    if(post && post.user != currentUser.username){
         return ctx.redirect('/')
     }
     let postContent = ctx.request.body.post
+    console.log(postContent)
     let time = new Date().Format("yyyy-MM-dd hh:mm:ss");
-    let result = await Post.update(id,{postContent,time})
+    let result = await Post.update(id,{post: postContent,time})
     if(result.result.n == 1){
         ctx.flash = { success: '更新成功' };
         ctx.redirect('/user/' + currentUser.username)

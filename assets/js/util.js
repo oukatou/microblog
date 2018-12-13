@@ -89,3 +89,14 @@ $(document).on('click','.collected',(e)=>{
         }
     })
 })
+$(document).on('click','.cardwrap',function(e){
+    let target  = e.target;
+    if($(target).hasClass('comment')){
+        let feed_box = $(this).find('.feed_box')
+        if(feed_box.is(':visible')){
+            feed_box.hide()
+        }else{
+            feed_box.show()
+        }
+    }
+})
