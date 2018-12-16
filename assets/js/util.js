@@ -2,20 +2,20 @@
 $('.leftnav li').click(function(){
     $(this).addClass('active').siblings().removeClass('active')
 })
-$('#post').click(function(){
+$(document).on('click', '#post', function(){
     $(this).parent('.input').addClass('clicked')
 })
-$('#post').blur(function(){
+$(document).on('blur', '#post', function(){
     $(this).parent('.input').removeClass('clicked')
 })
-$('.delete-link').click(function(){
+$(document).on('click','.delete-link',function(){
     $.ajax({
         url: '/remove',
         method: 'delete',
         data: {id: $(this).attr('wb-id')},
         success(result){
             if(result.success){
-                $('[wid=' + result.wid + ']').fadeOut('fast').queue(function() {
+                $('[wid=' + result.wid + ']').slideUp('normal').queue(function() {
                     $(this).remove();
                 })
                 let count = Number($('.count').text())
@@ -47,14 +47,25 @@ $(document).on('click','.liked',(e)=>{
         url: '/not_like',
         type: 'post',
         data: {like_id: $link.data('like-id'),
-               likeable_id: $link.data('likeable-id')},
+               likeable_id: $link.data('likeable-id'),
+               username: $link.data('username')},
         success(result){
             if(result.success){
-                $link.removeClass('liked glyphicon-heart').addClass('not-liked glyphicon-heart-empty')
-                if(result.liked)
-                    $link.find('span').text(' '+ result.liked)
-                else
-                    $link.find('span').text(' 赞')
+                if('liked' in result){
+                    $link.removeClass('liked glyphicon-heart').addClass('not-liked glyphicon-heart-empty')
+                    if(result.liked != 0){
+                        $link.find('span').text(' '+ result.liked)
+                    }else{
+                        $link.find('span').text(' 赞')
+                    }
+                }else if('liked_count' in result){
+                    $link.parents('.deleted').slideUp('slow').queue(function() {
+                        $(this).remove();
+                        if(result.liked_count == 0){
+                            $('.middle').html('还没有赞')
+                        }
+                    })
+                }
             }
         }
     })
@@ -85,18 +96,75 @@ $(document).on('click','.collected',(e)=>{
         success(result){
             if(result.success){
                 $link.removeClass('collected glyphicon-star').addClass('not-collected glyphicon-star-empty')
+                if('collected_count' in result){
+                    $link.parents('.deleted').slideUp('slow').queue(function() {
+                        $(this).remove();
+                        if(result.collected_count == 0){
+                            $('.middle').html('还没有收藏')
+                        }
+                    })
+                }
             }
         }
     })
 })
 $(document).on('click','.cardwrap',function(e){
     let target  = e.target;
-    if($(target).hasClass('comment')){
+    if($(target).hasClass('comment') || $(target).parents('.comment').length){
         let feed_box = $(this).find('.feed_box')
         if(feed_box.is(':visible')){
             feed_box.hide()
         }else{
             feed_box.show()
         }
+    }
+})
+$(document).on('click','#collect',function(e){
+    e.preventDefault()
+    $.ajax({
+        url: '/get_collect',
+        type: 'get',
+        success(dom){
+            $('.container .middle').html(dom);
+            history.pushState('','','/collect')
+        }
+    })
+})
+$(document).on('click','#like',function(e){
+    e.preventDefault()
+    let url = $(this).find('a').attr('href')
+    $.ajax({
+        url,
+        type: 'get',
+        success(dom){
+            $('.container .middle').html(dom);
+            history.pushState('','','/like/'+url.split('/')[2])
+        }
+    })
+})
+$(document).on('click','#home',function(e){
+    e.preventDefault()
+    let url = $(this).find('a').attr('href')
+    let user = url.split('/')[1]
+    if(user != 'all'){
+        url = '/get_user/'+url.split('/')[2]
+        $.ajax({
+            url,
+            type: 'get',
+            success(dom){
+                $('.container .middle').html(dom);
+                history.pushState('','','/user/'+url.split('/')[2])
+            }
+        })
+    }else{
+        url = '/all'
+        $.ajax({
+            url,
+            type: 'get',
+            success(dom){
+                $('.container .middle').html(dom);
+                history.pushState('','','/')
+            }
+        })
     }
 })

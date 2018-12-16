@@ -1,35 +1,8 @@
-<div class='middle'>
-    <% if (user && user.username == username) { %>
-        <%- include('post') %>
-    <% } %>
-    <% if(posts.length){%>
-        <%- include('posts') %>
-    <% }else{%>
-        还没有微博
-    <% }%>    
-</div>
-<div class='leftnav'>
-    <ul>
-        <li class="active"><a href="/user/<%= username %>"><span>首页</span></a></li>
-        <% if (user && user.username == username) { %>
-            <li><a href="/collect"><span>我的收藏</span></a></li>
-        <% }%>    
-        <% if (user && user.username == username) { %>
-            <li><a href="/like/<%= username%>"><span>我的赞</span></a></li>
-        <% }else { %>
-            <li><a href="/like/<%= username%>"><span>他的赞</span></a></li>
-        <% } %>    
-    </ul>
-</div>
-<div class='right'>
-    <div class="user_info">
-        <div class="name"><%= username %></div>
-        <div class="user_atten">
-            <ul>
-                <li><a href=""><strong>1</strong><span>关注</span></a> </li>
-                <li><a href=""><strong>2</strong><span>粉丝</span></a> </li>
-                <li><a href=""><strong class='count'><%= posts_count%></strong><span>微博</span></a> </li>
-            </ul>     
-        </div>
-    </div>
-</div>
+<% if (user && user.username == username) { %>
+    <%- include('post') %>
+<% } %>
+<% if(posts.length){%>
+    <%- include('posts') %>
+<% }else{%>
+    还没有微博
+<% }%>

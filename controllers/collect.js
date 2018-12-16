@@ -6,23 +6,30 @@ const collections = async (ctx)=>{
     let username = currentUser.username;
     let collections = await Collect.get(username)
     let collected_posts = []
+    let layout = 'layout';
     for(let i = 0; i< collections.length; i++){
         let id = collections[i].collectable_id
         let post = await Post.findOne(id)
         let like = await Like.getOne({likeable_id:id,user: currentUser.username})
-        if(post){
+        if (post){
             Object.assign(post,{collect_id:collections[i].collect_id})
-            collected_posts.unshift(post)
+            if(like){
+                Object.assign(post,{like_id: like.like_id})
+            }
+        }else{
+            post = collections[i]
         }
-        if(like){
-            Object.assign(post,{like_id: like.like_id})
-        }
+        collected_posts.unshift(post)
+    }
+    if (/get_collect/.test(ctx.path)){
+        layout = false;
     }
     let myPosts = await Post.get(username);
     await ctx.render('collect_frame',{
+        layout,
         posts: collected_posts,
         posts_count: myPosts.length,
-        username: username
+        username
     })
 }
 const collect = async (ctx)=>{
@@ -63,6 +70,9 @@ const not_collect = async (ctx)=>{
     let collect_id = ctx.request.body.collect_id;
     let not_collected_result
     let post = await Collect.findOne(collect_id)
+    let collections = 0;
+    let currentUser  = ctx.session.userinfo;
+    collections = await Collect.get(currentUser.username)
     if(post){
         not_collected_result = await Collect.remove(collect_id)
     }else{
@@ -71,7 +81,8 @@ const not_collect = async (ctx)=>{
     }
     if (not_collected_result.result.n == 1){
         ctx.body = {
-            success: true
+            success: true,
+            collected_count: collections.length-1
         }
     }else{
         ctx.body = {success: false};
@@ -81,6 +92,7 @@ const not_collect = async (ctx)=>{
 
 module.exports={
     'GET /collect': collections,
+    'GET /get_collect': collections,
     'POST /collect': collect,
     'POST /not_collect': not_collect
 }

@@ -1,6 +1,8 @@
 const User = require('../models/user')
 const register = async ctx=>{
-   await ctx.render('reg')
+   await ctx.render('reg',{
+    layout: 'header'
+})
 }
 const doregister = async ctx=>{
     let username = ctx.request.body.username;

@@ -40,10 +40,56 @@
                         <%= error %>
                     </div>
                 <% } %>
-                <div>
-                    <%- body %>
+                <div class='middle'>  
+                    <%- body %>   
+                </div>
+                <div class='leftnav'>
+                    <ul>
+                        <% if (user && user.username == username ) {%>
+                            <li id='home'><a href="/get_user/<%= username %>"><span>我的首页</span></a></li>
+                        <% }else if(username){ %>
+                            <li id='home'><a href="/get_user/<%= username %>"><span>他的首页</span></a></li>
+                        <% }else{%>     
+                            <li id='home'><a href="/all"><span>首页</span></a></li>
+                        <% }%>  
+                        <% if (user && user.username == username) { %>
+                            <li id='collect'><a href="#"><span>我的收藏</span></a></li>
+                        <% }%>    
+                        <% if (user && user.username == username) { %>
+                            <li id='like'><a href="/get_like/<%= user.username%>"><span>我的赞</span></a></li>
+                        <% }else if (username){ %>
+                            <li id='like'><a href="/get_like/<%= username%>"><span>他的赞</span></a></li>
+                        <% } %>    
+                    </ul>
+                </div>
+                <div class='right'>
+                    <% if (user && user.username == username) {%>
+                    <div class="user_info">
+                        <div class="name"><%= user.username %></div>
+                        <div class="user_atten">
+                            <ul>
+                                <li><a href=""><strong>1</strong><span>关注</span></a> </li>
+                                <li><a href=""><strong>2</strong><span>粉丝</span></a> </li>
+                                <li><a href=""><strong class='count'><%= posts_count%></strong><span>微博</span></a> </li>
+                            </ul>     
+                        </div>
+                    </div>
+                    <% }else if (username) {%>
+                        <div class="user_info">
+                            <div class="name"><%= username %></div>
+                            <div class="user_atten">
+                                <ul>
+                                    <li><a href=""><strong>1</strong><span>关注</span></a> </li>
+                                    <li><a href=""><strong>2</strong><span>粉丝</span></a> </li>
+                                    <li><a href=""><strong class='count'><%= posts_count%></strong><span>微博</span></a> </li>
+                                </ul>     
+                            </div>
+                        </div>
+                    <% }else{ %>
+                        <%- include('login') %>
+                    <% } %>
                 </div>
         </div>
-    <script src='/js/util.js'></script>
+        <script src='/js/util.js'></script>
     </body>
 </html>

@@ -19,6 +19,7 @@ module.exports = {
     'GET /login': checkNotLogin,
     "GET /reg": checkNotLogin,
     "GET /logout": checkLogin,
-    'GET /edit': checkLogin
+    'GET /edit': checkLogin,
+    'GET /collect': checkLogin
 
 }

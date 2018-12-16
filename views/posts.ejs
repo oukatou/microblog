@@ -1,4 +1,17 @@
 <% posts.forEach(function(post, index) { %>
+  <% if(post.likeable_id){ %>
+    <div class='cardwrap deleted'>
+      <% if(user && user.username == username){%>
+        <p class='content glyphicon glyphicon-exclamation-sign'> 抱歉，此条微博已经被作者删除，<a data-likeable-id='<%= post.likeable_id%>' data-like-id='<%= post.like_id%>' data-username='<%= post.username%>' class='liked' href="#">取消赞</a>。</p>
+      <% }else{ %>
+        <p class='content glyphicon glyphicon-exclamation-sign'> 抱歉，此条微博已经被作者删除。</p>
+      <% } %>  
+    </div>
+  <% }else if(post.collectable_id){ %>
+    <div class='cardwrap deleted'>
+        <p class='content glyphicon glyphicon-exclamation-sign'> 抱歉，此条微博已经被作者删除，<a data-collect  able-id='<%= post.collectable_id%>' data-collect-id='<%= post.collect_id%>' data-username='<%= post.username%>' class='collected' href="#">取消收藏</a>。</p>
+  </div>
+  <% }else{ %>
   <div class="cardwrap" wid="<%= post._id%>">
     <div class="screen_box">
       <% if (user && user.username == post.user) {%>
@@ -30,14 +43,14 @@
           <li><a class='glyphicon glyphicon-share' href="#"><span>转发</span></a></li>
           <li class="comment">
               <% if(user) { %>
-                <a class='comment glyphicon glyphicon-comment' href="javascript:void(0);">
+                <a class='glyphicon glyphicon-comment' href="javascript:void(0);">
               <%} else {%>
                 <a class='glyphicon glyphicon-comment' href="/login">
               <% } %>
                 <% if(post.commented){%>
-                  <span class='comment'><%=post.commented%></span>
+                  <span><%=post.commented%></span>
                 <%} else {%>
-                  <span class='comment'>评论</span>
+                  <span>评论</span>
                 <% } %>
             </a>
           </li>
@@ -66,7 +79,7 @@
           <% } %>  
       </ul>
     </div>
-    <div class="feed_box" style="display:block">
+    <div class="feed_box" style="display:none">
       <div class="feed_publish">
         <div class="input">
           <textarea name="" id="" required></textarea>
@@ -79,6 +92,7 @@
 
       </div>
     </div>
-  </div>  
+  </div>
+  <% } %>   
 <%}) %>
   

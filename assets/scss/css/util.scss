@@ -98,7 +98,7 @@
   box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.15) inset;
   background: #fff;
   &.clicked {
-    border-color: #fa7d3c;
+    border: none;
     outline: #eb7350 auto 5px;
   }
 }
@@ -207,6 +207,14 @@ textarea {
   .liked,.collected{
     color: $hoverColor
   }
+}
+.deleted{
+  padding: 20px;
+  background-color: #fff;
+  a{
+    color: $hoverColor
+  }
+
 }
 .feed_box{
   overflow: hidden;

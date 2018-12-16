@@ -18,12 +18,16 @@ const post = async (ctx)=>{
 }
 const edit = async (ctx)=>{
     let id = ctx.request.query.id
+    let username  = ctx.session.userinfo.username;
+    let myPosts = await Post.get(username);
     if (id.length == 24){
         let result = await Post.findOne(id)
         if(result){
             await ctx.render('edit',{
                 content: result.post,
-                id: id
+                id: id,
+                posts_count: myPosts.length,
+                username
             })
         }else{
             return ctx.redirect('/')
@@ -48,7 +52,6 @@ const doedit = async (ctx)=>{
         return ctx.redirect('/')
     }
     let postContent = ctx.request.body.post
-    console.log(postContent)
     let time = new Date().Format("yyyy-MM-dd hh:mm:ss");
     let result = await Post.update(id,{post: postContent,time})
     if(result.result.n == 1){
@@ -67,7 +70,7 @@ const remove = async (ctx)=>{
         return
     }
     let post = await Post.findOne(id)
-    if(post && post.username != currentUser.username){
+    if(post && post.user != currentUser.username){
         ctx.body = {success: false};
         return
     }

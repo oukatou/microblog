@@ -1,12 +1,13 @@
 const User = require('../models/user')
 const login = async ctx =>{
-    await ctx.render('login')
+    await ctx.render('login', {
+        layout: 'header'
+    });
 }
 const dologin = async ctx => {
     let name = ctx.request.body.username;
     let pwd = ctx.request.body.password;
     let user = await User.get(name);
-
     if(!user){
         ctx.flash = { error: '用户名不存在，请重新输入' };
         return ctx.redirect('login')

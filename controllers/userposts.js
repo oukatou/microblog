@@ -5,6 +5,7 @@ const Collect = require('../models/collect')
 const userposts = async (ctx)=>{
     let username = ctx.params.username
     let user = await User.get(username)
+    let layout = 'layout'
     if(!user){
         ctx.flash={ error: '用户不存在' };
         return ctx.redirect('/')
@@ -27,13 +28,18 @@ const userposts = async (ctx)=>{
             }
         }
     }
+    if(/get_user/.test(ctx.path)){
+        layout = false;
+    }
     await ctx.render('user_frame',{
+        layout,
         posts: posts,
         posts_count: posts.length,
-        username: username
+        username
     })
 }
 
 module.exports = {
-    'GET /user/:username': userposts
+    'GET /user/:username': userposts,
+    'GET /get_user/:username': userposts
 }
