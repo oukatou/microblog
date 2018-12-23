@@ -1,26 +1,27 @@
-<form class="form-horizontal" method="post" action='/reg'>
+<form class="well col-sm-2 col-sm-offset-5" method="post" action='/reg'>
     <fieldset>
         <legend>用户注册</legend>
-        <div class="control-group">
+        <div class="form-group">
             <label class="control-label" for="username">用户名</label>
-            <div class="controls">
-                <input required type="text" class="input-xlarge" id="username" name="username">
-                <p class="help-block">你的账户名称，用于登录和显示。</p> </div>
+            <div>
+                <input required type="text" class="form-control" id="username" name="username">
+                <p class="help-block">你的用户名称用于登录和显示。</p> </div>
             </div>
-        <div class="control-group">
+        </div>    
+        <div class="form-group">
             <label class="control-label" for="password">密码</label>
-            <div class="controls">
-                <input required type="password" class="input-xlarge" id="password" name="password">
+            <div>
+                <input required type="password" class="form-control" id="password" name="password">
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             <label class="control-label" for="password-repeat">重复输入密码</label>
-            <div class="controls">
-                <input required type="password" class="input-xlarge" id="password-repeat" name="password-repeat">
+            <div>
+                <input required type="password" class="form-control" id="password-repeat" name="password-repeat">
             </div>
         </div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">注册</button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">注册</button>
         </div>
         </fieldset>
     </form>        

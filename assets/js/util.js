@@ -1,4 +1,25 @@
 
+var app = new Vue({
+    el: '#app',
+    data: {
+        currentPath: window.location.pathname
+    },
+    computed:{
+        isUserpage(){
+            return /user/.test(this.currentPath)
+        },
+        isCollectpage(){
+            return /collect/.test(this.currentPath)
+        },
+        isLikepage(){
+            return /like/.test(this.currentPath)
+        },
+        isHomepage(){
+            return /\//.test(this.currentPath)
+        }
+    }
+  })
+$(document).ready(function(){
 $('.leftnav li').click(function(){
     $(this).addClass('active').siblings().removeClass('active')
 })
@@ -116,6 +137,7 @@ $(document).on('click','.cardwrap',function(e){
             feed_box.hide()
         }else{
             feed_box.show()
+            feed_box.find('textarea').focus()
         }
     }
 })
@@ -167,4 +189,5 @@ $(document).on('click','#home',function(e){
             }
         })
     }
+})
 })

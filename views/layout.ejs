@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css" href="/css/util.css">
         <script src="/js/jquery.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
     </head>
     <body>
         <header>
@@ -30,35 +31,42 @@
            </div>
         </header>   
         <div id ="container" class="container">
+            <div id='app'>
                 <% if(success) { %>
-                    <div class='alert alert-success'>
+                    <div class='alert-dismissable alert alert-success '>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            &times;
+                        </button>
                         <%= success %>
                     </div>
                 <% } %>
                 <% if(error) { %>
-                    <div class='alert alert-danger'>
+                    <div class='alert alert-danger alert-dismissable'>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            &times;
+                        </button>
                         <%= error %>
                     </div>
                 <% } %>
-                <div class='middle'>  
+                <div class='middle'>
                     <%- body %>   
                 </div>
                 <div class='leftnav'>
                     <ul>
                         <% if (user && user.username == username ) {%>
-                            <li id='home'><a href="/get_user/<%= username %>"><span>我的首页</span></a></li>
+                            <li id='home' :class="{active: isUserpage}"><a href="/get_user/<%= username %>"><span>我的首页</span></a></li>
                         <% }else if(username){ %>
-                            <li id='home'><a href="/get_user/<%= username %>"><span>他的首页</span></a></li>
+                            <li id='home' :class="{active: isUserpage}"><a href="/get_user/<%= username %>"><span>他的首页</span></a></li>
                         <% }else{%>     
-                            <li id='home'><a href="/all"><span>首页</span></a></li>
+                            <li id='home' :class="{active: isHomepage}"><a href="/all"><span>首页</span></a></li>
                         <% }%>  
                         <% if (user && user.username == username) { %>
-                            <li id='collect'><a href="#"><span>我的收藏</span></a></li>
+                            <li id='collect' :class="{active: isCollectpage}"><a href="#"><span>我的收藏</span></a></li>
                         <% }%>    
                         <% if (user && user.username == username) { %>
-                            <li id='like'><a href="/get_like/<%= user.username%>"><span>我的赞</span></a></li>
+                            <li id='like' :class="{active: isLikepage}"><a href="/get_like/<%= user.username%>"><span>我的赞</span></a></li>
                         <% }else if (username){ %>
-                            <li id='like'><a href="/get_like/<%= username%>"><span>他的赞</span></a></li>
+                            <li id='like' :class="{active: isLikepage}"><a href="/get_like/<%= username%>"><span>他的赞</span></a></li>
                         <% } %>    
                     </ul>
                 </div>
@@ -89,6 +97,7 @@
                         <%- include('login') %>
                     <% } %>
                 </div>
+            </div>
         </div>
         <script src='/js/util.js'></script>
     </body>

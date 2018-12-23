@@ -1,6 +1,6 @@
 <% posts.forEach(function(post, index) { %>
   <% if(post.likeable_id){ %>
-    <div class='cardwrap deleted'>
+    <div class='cardwrap deleted panel'>
       <% if(user && user.username == username){%>
         <p class='content glyphicon glyphicon-exclamation-sign'> 抱歉，此条微博已经被作者删除，<a data-likeable-id='<%= post.likeable_id%>' data-like-id='<%= post.like_id%>' data-username='<%= post.username%>' class='liked' href="#">取消赞</a>。</p>
       <% }else{ %>
@@ -8,11 +8,11 @@
       <% } %>  
     </div>
   <% }else if(post.collectable_id){ %>
-    <div class='cardwrap deleted'>
+    <div class='cardwrap deleted panel'>
         <p class='content glyphicon glyphicon-exclamation-sign'> 抱歉，此条微博已经被作者删除，<a data-collect  able-id='<%= post.collectable_id%>' data-collect-id='<%= post.collect_id%>' data-username='<%= post.username%>' class='collected' href="#">取消收藏</a>。</p>
   </div>
   <% }else{ %>
-  <div class="cardwrap" wid="<%= post._id%>">
+  <div class="cardwrap panel" wid="<%= post._id%>">
     <div class="screen_box">
       <% if (user && user.username == post.user) {%>
         <span class="glyphicon glyphicon-chevron-down arrow_down" data-toggle="dropdown"></span>

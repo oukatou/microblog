@@ -1,19 +1,20 @@
-<form class="form-horizontal" method="post" action='/login'>
+<form class='center-block form-for-login well' method="post" action='/login'>
     <fieldset>
         <legend>用户登录</legend>
-        <div class="control-group">
+        <div class="form-group">
             <label class="control-label" for="username">用户名</label>
-            <div class="controls">
-                <input required type="text" class="input-xlarge" id="username" name="username">
+            <div>
+                <input required type="text" class="form-control" id="username" name="username">
             </div>
-        <div class="control-group">
+        </div>    
+        <div class="form-group">
             <label class="control-label" for="password">密码</label>
-            <div class="controls">
-                <input required type="password" class="input-xlarge" id="password" name="password">
+            <div>
+                <input required type="password" class="form-control" id="password" name="password">
             </div>
         </div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">登录</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-block">登录</button>
         </div>
     </fieldset>
 </form>        
