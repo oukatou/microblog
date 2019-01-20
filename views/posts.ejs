@@ -42,15 +42,11 @@
 
           <li><a class='glyphicon glyphicon-share' href="#"><span>转发</span></a></li>
           <li class="comment">
-              <% if(user) { %>
                 <a class='glyphicon glyphicon-comment' href="javascript:void(0);">
-              <%} else {%>
-                <a class='glyphicon glyphicon-comment' href="/login">
-              <% } %>
                 <% if(post.commented){%>
-                  <span><%=post.commented%></span>
+                  <span> <%= post.commented%></span>
                 <%} else {%>
-                  <span>评论</span>
+                  <span> 评论</span>
                 <% } %>
             </a>
           </li>
@@ -60,9 +56,9 @@
             <li>
               <a data-likeable-id='<%= post._id%>' class='not-liked glyphicon glyphicon-heart-empty' href="#">
                 <% if(post.liked){%>
-                  <span><%=post.liked%></span>
+                  <span><%= post.liked%></span>
                 <%} else{%>
-                  <span>赞</span>
+                  <span> 赞</span>
                 <% } %>
               </a>
             </li>
@@ -72,7 +68,7 @@
                 <% if(post.liked){%>
                   <span><%= post.liked%></span>
                 <%} else{%>
-                  <span>赞</span>
+                  <span> 赞</span>
                 <% } %>
               </a>
             </li>
@@ -80,16 +76,17 @@
       </ul>
     </div>
     <div class="feed_box" style="display:none">
-      <div class="feed_publish">
-        <div class="input">
-          <textarea name="" id="" required></textarea>
-              <div class="btn">
-                <a href="javascript:void(0)" onclick="return false">评论</a>
-              </div>
+      <% if (user) {%>
+        <div class="feed_publish">
+          <div class="input">
+            <textarea name="" id="" required></textarea>
+                <div class="btn add-comment">
+                  <a href="javascript:void(0)" onclick="return false">评论</a>
+                </div>
+          </div>
         </div>
-      </div>
+      <% }%>  
       <div class="feed_list">
-
       </div>
     </div>
   </div>

@@ -1,4 +1,5 @@
 const Post = require('../models/post')
+const Comment = require('../models/comment')
 const post = async (ctx)=>{
     let currentUser  = ctx.session.userinfo;
     let cont = ctx.request.body.post.replace(/\s+/g,'')
@@ -75,7 +76,8 @@ const remove = async (ctx)=>{
         return
     }
     let result = await Post.remove(id)
-    if(result.result.n == 1){
+    let comment_result = await Comment.remove({commentable_id:id})
+    if(result.result.n == 1 && comment_result.result.ok == 1){
         ctx.body = {success: true,
                     wid: id};
     }else{

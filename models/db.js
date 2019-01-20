@@ -99,6 +99,19 @@ class Db{
             })
         })
     }
+    removeMany(collectionName, json){
+        return new Promise((resolve, reject)=>{
+            this.connect().then(db=>{
+                db.collection(collectionName).deleteMany(json,(err,result)=>{
+                    if(err){
+                        reject(err)
+                    }else{
+                        resolve(result)
+                    }
+                });
+            })
+        })
+    }
 }
 
 module.exports = Db.getInstance();

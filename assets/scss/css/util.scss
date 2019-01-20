@@ -255,7 +255,24 @@ textarea {
     }
   }
   .feed_list{
-
+    .feed_item{
+      font-size: 12px;
+      border-bottom: 1px solid rgb(217, 217, 217);
+      .name{
+        color: rgb(48, 125, 116)
+      }
+      .time{
+        padding: 5px 10px;
+      }
+      .delete-comment{
+        position: absolute;
+        right: 20px;
+        color: #808080;
+        &:hover{
+          color: $hoverColor
+        }
+      }
+    }
   }
 
 }

@@ -1,4 +1,3 @@
-
 var app = new Vue({
     el: '#app',
     data: {
@@ -45,8 +44,8 @@ $(document).on('click','.delete-link',function(){
         }
     })
 })
-$(document).on('click','.not-liked',(e)=>{
-    $link = $(e.currentTarget);
+$(document).on('click','.not-liked',function(e){
+    let $link = $(e.currentTarget);
     e.preventDefault()
     $.ajax({
         url: '/like',
@@ -61,8 +60,8 @@ $(document).on('click','.not-liked',(e)=>{
         }
     })
 })
-$(document).on('click','.liked',(e)=>{
-    $link = $(e.currentTarget);
+$(document).on('click','.liked',function(e){
+    let $link = $(e.currentTarget);
     e.preventDefault()
     $.ajax({
         url: '/not_like',
@@ -80,7 +79,7 @@ $(document).on('click','.liked',(e)=>{
                         $link.find('span').text(' 赞')
                     }
                 }else if('liked_count' in result){
-                    $link.parents('.deleted').slideUp('slow').queue(function() {
+                    $link.parents('.cardwrap').slideUp('slow').queue(function() {
                         $(this).remove();
                         if(result.liked_count == 0){
                             $('.middle').html('还没有赞')
@@ -92,8 +91,8 @@ $(document).on('click','.liked',(e)=>{
     })
 })
 
-$(document).on('click','.not-collected',(e)=>{
-    $link = $(e.currentTarget);
+$(document).on('click','.not-collected',function(e){
+    let $link = $(e.currentTarget);
     e.preventDefault()
     $.ajax({
         url: '/collect',
@@ -107,8 +106,8 @@ $(document).on('click','.not-collected',(e)=>{
         }
     })
 })
-$(document).on('click','.collected',(e)=>{
-    $link = $(e.currentTarget);
+$(document).on('click','.collected',function(e){
+    let $link = $(e.currentTarget);
     e.preventDefault()
     $.ajax({
         url: '/not_collect',
@@ -118,7 +117,7 @@ $(document).on('click','.collected',(e)=>{
             if(result.success){
                 $link.removeClass('collected glyphicon-star').addClass('not-collected glyphicon-star-empty')
                 if('collected_count' in result){
-                    $link.parents('.deleted').slideUp('slow').queue(function() {
+                    $link.parents('.cardwrap').slideUp('slow').queue(function() {
                         $(this).remove();
                         if(result.collected_count == 0){
                             $('.middle').html('还没有收藏')
@@ -130,13 +129,28 @@ $(document).on('click','.collected',(e)=>{
     })
 })
 $(document).on('click','.cardwrap',function(e){
-    let target  = e.target;
+    let target = e.target;
     if($(target).hasClass('comment') || $(target).parents('.comment').length){
         let feed_box = $(this).find('.feed_box')
+        let feed_list = feed_box.find('.feed_list')
         if(feed_box.is(':visible')){
             feed_box.hide()
+            feed_list.empty()
         }else{
             feed_box.show()
+            $.ajax({
+                url: '/comments',
+                type: 'get',
+                data: {commentable_id: $(this).attr('wid')},
+                success(resp){
+                    if(resp.comments.length>0){
+                        resp.comments.forEach((item)=>{
+                            feed_list.append($(createComment(
+                                {user:item.user,content:item.content,time:item.time,comment_id:item.comment_id})).hide().fadeIn())
+                        })
+                    }
+                }
+            })
             feed_box.find('textarea').focus()
         }
     }
@@ -191,3 +205,63 @@ $(document).on('click','#home',function(e){
     }
 })
 })
+
+$(document).on('click','.add-comment',function(e){
+    let $link = $(e.currentTarget);
+    let $textarea = $link.closest('.input').find('textarea');
+    let $feed_box = $link.closest('.feed_box')
+    let content = $textarea.val();
+    if(!content.trim()){
+        alert('内容不能为空')
+        return
+    }
+    let user = window.CURRENT_USER.username;
+    $textarea.val('')
+    $.ajax({
+        url: '/comment',
+        type: 'post',
+        data: {commentable_id: $link.closest('.cardwrap').attr('wid'),
+               content },
+        success(result){
+            let time = result.time;
+            let comment_id = result.comment_id
+            if(result.success){
+                $feed_box.find('.feed_list').prepend($(createComment({ user,content,time,comment_id}))).hide().fadeIn()
+                $feed_box.siblings('.handle').find('.comment span').text(' '+ result.commented)
+            }
+        }
+    })
+})
+$(document).on('click','.delete-comment',function(e){
+    e.preventDefault();
+    let $feed_item = $(this).closest('.feed_item')
+    let id = $feed_item.data('comment-id')
+    $.ajax({
+        url: '/comments',
+        type: 'delete',
+        data: {comment_id: id,
+               commentable_id: $(this).closest('.cardwrap').attr('wid')},
+        success(resp){
+            if(resp.success === true){
+                $feed_item.slideUp('fast').queue(function() {
+                    if(resp.commented != 0){
+                        $(this).closest('.feed_box').siblings('.handle').find('.comment span').text(' '+ resp.commented)
+                    }else{
+                        $(this).closest('.feed_box').siblings('.handle').find('.comment span').text(' 评论')
+                    }   
+                    $(this).remove();
+                })
+            }
+        }
+    })
+})
+const createComment = ({user,content,time,comment_id})=>{
+    let current_user = window.CURRENT_USER ? window.CURRENT_USER.username : ''
+    return [
+        '<div class="feed_item" data-comment-id=', comment_id ,'>',
+        '<a class="name" target="_blank" href="/user/', user,'">', user ,':</a>',
+        '<span class="content" >', content, '</span>',
+        '<div><span class="time">', time,
+        (user == current_user) ? '</span> <a class="delete-comment" href="#">删除</a></div>' : '',
+        '</div>'].join('')
+}

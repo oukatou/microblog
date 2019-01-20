@@ -26,7 +26,17 @@ a {
 
 .alert {
   height: 30px;
-  padding: 4px; }
+  line-height: 30px;
+  padding: 0 35px 0 6px; }
+
+.alert-dismissable .close {
+  top: 1px; }
+
+.form-for-login {
+  width: 230px; }
+
+form.well {
+  padding: 8px; }
 
 .container {
   background-color: rgba(55, 60, 82, 0.25);
@@ -96,28 +106,33 @@ a {
   font-size: 16px;
   line-height: 22px;
   text-align: left; }
+  .send_wb h5 textarea {
+    background: transparent; }
 
-.input {
+.send_wb .input {
   border: 1px #ccc solid;
   box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.15) inset;
-  background: #fff; }
-  .input.clicked {
-    border-color: #ffc09f; }
+  background: #fff;
+  padding: 5px;
+  margin: 4px 0; }
+  .send_wb .input.clicked {
+    border-color: #fa7d3c;
+    box-shadow: none; }
 
-.send_wb textarea {
+textarea {
   resize: none;
   border: none;
   outline: none;
-  background: transparent; }
+  width: 100%; }
 
 .send-btn {
-  background: #ffc09f;
+  background: #ff8140;
   width: 80;
   height: 28px;
   line-height: 28px;
   color: #fff;
   font-size: 14px;
-  border-color: #ffc09f;
+  border-color: #ff8140;
   border-radius: 2px;
   padding: 0;
   margin: 7px 7px 0; }
@@ -149,7 +164,7 @@ a {
 
 .wb_info {
   padding: 20px;
-  background-color: #f5f5f5; }
+  background-color: #fff; }
   .wb_info .title {
     display: inline-block;
     font-size: 14px;
@@ -171,7 +186,7 @@ a {
   overflow: hidden; }
   .handle li {
     border-top: 1px solid #d9d9d9;
-    background: #f5f5f5;
+    background: #fff;
     float: left;
     width: 25%;
     text-align: center;
@@ -187,5 +202,47 @@ a {
       color: #eb7350; }
     .handle a span {
       vertical-align: text-top; }
-  .handle .liked {
+  .handle .liked, .handle .collected {
     color: #eb7350; }
+
+.deleted {
+  padding: 20px;
+  background-color: #fff; }
+  .deleted a {
+    color: #eb7350; }
+
+.feed_box {
+  overflow: hidden;
+  background-color: #f2f2f5;
+  padding: 16px 6px 6px;
+  border: 1px solid #d9d9d9; }
+  .feed_box .input {
+    height: 60px; }
+  .feed_box textarea {
+    line-height: 18px;
+    height: 27px;
+    padding: 5px 2px 0px 6px; }
+    .feed_box textarea:focus {
+      outline: #eb7350 auto 2px; }
+  .feed_box .btn {
+    position: absolute;
+    right: 8px;
+    height: 27px;
+    padding: 3px 10px;
+    background-color: #ff8140;
+    margin: 5px 5px 0; }
+    .feed_box .btn:hover {
+      background-color: #eb7350; }
+  .feed_box .feed_list .feed_item {
+    font-size: 12px;
+    border-bottom: 1px solid #d9d9d9; }
+    .feed_box .feed_list .feed_item .name {
+      color: #307d74; }
+    .feed_box .feed_list .feed_item .time {
+      padding: 5px 10px; }
+    .feed_box .feed_list .feed_item .delete-comment {
+      position: absolute;
+      right: 20px;
+      color: #808080; }
+      .feed_box .feed_list .feed_item .delete-comment:hover {
+        color: #eb7350; }

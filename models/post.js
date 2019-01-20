@@ -11,6 +11,7 @@ class Post {
             user: this.user,
             post: this.post,
             liked: 0,
+            commented: 0,
             time: this.time
         }
         return new Promise(async resolve => {
