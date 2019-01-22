@@ -22,6 +22,9 @@ $(document).ready(function(){
 $('.leftnav li').click(function(){
     $(this).addClass('active').siblings().removeClass('active')
 })
+$('.sidenav li').click(function(){
+    $(this).addClass('active').siblings().removeClass('active')
+})
 $(document).on('click', '#post', function(){
     $(this).parent('.input').addClass('clicked')
 })
@@ -265,3 +268,14 @@ const createComment = ({user,content,time,comment_id})=>{
         (user == current_user) ? '</span> <a class="delete-comment" href="#">删除</a></div>' : '',
         '</div>'].join('')
 }
+
+$(document).on('click','.sidenav',function(e){
+    let url = $(e.target).attr('id');
+    $.ajax({
+        url,
+        type: 'get',
+        success(dom){
+            $('.container article').html(dom);
+        }
+    })
+})
