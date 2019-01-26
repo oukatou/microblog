@@ -1,7 +1,7 @@
 const User = require('../models/user')
 const login = async ctx =>{
     await ctx.render('login', {
-        layout: 'header'
+        layout: 'header_layout'
     });
 }
 const dologin = async ctx => {
