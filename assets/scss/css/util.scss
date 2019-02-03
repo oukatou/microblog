@@ -59,9 +59,14 @@ form.well{
   padding: 0 10px;
   .user_info {
     text-align: center;
-    height: 100px;
     background: #f5f5f5;
     border-radius: 2px;
+    .avatar{
+      margin-top: 10px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%
+    }
   }
 }
 
@@ -169,6 +174,15 @@ textarea {
 .wb_info {
   padding: 20px;
   background-color: #fff;
+  .avatar{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    float: left;
+  }
+  .post{
+    margin-left: 60px;
+  }
   .title {
     display: inline-block;
     font-size: 14px;
@@ -258,6 +272,15 @@ textarea {
     .feed_item{
       font-size: 12px;
       border-bottom: 1px solid rgb(217, 217, 217);
+      padding: 6px 0;
+      margin: 0 20px;
+      position: relative;
+      .avatar{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        float: left;
+      }
       .name{
         color: rgb(48, 125, 116)
       }
@@ -282,6 +305,7 @@ textarea {
       width: 120px;
       height: 120px;
       margin-bottom: 10px;
+      border-radius: 50%;
     }
     width: 170px;
     color: #fff;
@@ -290,10 +314,15 @@ textarea {
     padding: 10px 0 0 25px;
     .sidenav{
       li{
-        padding: 10px;
+        margin: 5px 0;
         cursor: pointer;
-        &:hover{
-          background: rgba(255, 255, 255, 0.2)
+        a{
+          display: inline-block;
+          padding: 10px;
+          width: 100%;
+          &:hover{
+            background: rgba(255, 255, 255, 0.2)
+          }
         }
         &.active{
           background: rgba(255, 255, 255, 0.2)
@@ -304,6 +333,38 @@ textarea {
   article{
     flex-grow: 1;
     background-color: #fff;
-    padding: 10px 25px 0 0;
+    padding: 10px;
+    form{
+      text-align: center;
+    }
+    .el-button{
+      margin-top: 10px
+    }
+  }
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    input[type=file]{
+      display: none;
+    }
+    &:hover{
+      border-color: #409EFF;
+    }
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
   }
 }

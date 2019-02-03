@@ -1,6 +1,6 @@
 const Comment = require('../models/comment')
 const Post = require('../models/post')
-
+const User = require('../models/user')
 const post = async (ctx) => {
     let commentable_id = ctx.request.body.commentable_id;
     let content = ctx.request.body.content;
@@ -18,6 +18,7 @@ const post = async (ctx) => {
     }
     comment_id++
     let currentUser  = ctx.session.userinfo;
+    let userinfo = await User.get(currentUser.username)
     let time = new Date().Format("yyyy-MM-dd hh:mm:ss");
     let comment = new Comment(currentUser.username,commentable_id,comment_id,content,time)
     let commented_result = await comment.save()
@@ -25,7 +26,8 @@ const post = async (ctx) => {
         ctx.body =  {success: true,
                      commented,
                      comment_id,
-                     time}
+                     time,
+                     avatarUrl: userinfo.avatarUrl}
     }else{
         ctx.body = {success: false};
         return;
@@ -34,6 +36,10 @@ const post = async (ctx) => {
 const comments = async (ctx)=>{
     let commentable_id = ctx.query.commentable_id;
     let comments = await Comment.get(commentable_id)
+    for(let i=0; i<comments.length; i++){
+        let userinfo = await User.get(comments[i].user)
+        Object.assign(comments[i],{avatarUrl: userinfo.avatarUrl})
+    }
     ctx.body = {
         comments
     }

@@ -1,6 +1,7 @@
 var app = new Vue({
     el: '#app',
     data: {
+        avatarUrl: '',
         currentPath: window.location.pathname
     },
     computed:{
@@ -13,9 +14,43 @@ var app = new Vue({
         isLikepage(){
             return /like/.test(this.currentPath)
         },
+        isAvatarpage(){
+            return /avatar/.test(this.currentPath)
+        },
+        isProfilepage(){
+            return /profile/.test(this.currentPath)
+        },
+        isPasswordpage(){
+            return /password/.test(this.currentPath)
+        },
+        isClosepage(){
+            return /close/.test(this.currentPath)
+        },
         isHomepage(){
             return /\//.test(this.currentPath)
         }
+    },
+    methods: {
+      handleAvatarSuccess(res, file) {
+          if(res.success){
+            this.avatarUrl = URL.createObjectURL(file.raw);
+            $('#avatarName').val(res.filename)
+          }
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+      }
+    },
+    created(){
     }
   })
 $(document).ready(function(){
@@ -149,7 +184,7 @@ $(document).on('click','.cardwrap',function(e){
                     if(resp.comments.length>0){
                         resp.comments.forEach((item)=>{
                             feed_list.append($(createComment(
-                                {user:item.user,content:item.content,time:item.time,comment_id:item.comment_id})).hide().fadeIn())
+                                {user:item.user,content:item.content,time:item.time,comment_id:item.comment_id,avatarUrl:item.avatarUrl})).hide().fadeIn())
                         })
                     }
                 }
@@ -228,8 +263,9 @@ $(document).on('click','.add-comment',function(e){
         success(result){
             let time = result.time;
             let comment_id = result.comment_id
+            let avatarUrl = result.avatarUrl
             if(result.success){
-                $feed_box.find('.feed_list').prepend($(createComment({ user,content,time,comment_id}))).hide().fadeIn()
+                $feed_box.find('.feed_list').prepend($(createComment({ user,content,time,comment_id,avatarUrl}))).hide().fadeIn()
                 $feed_box.siblings('.handle').find('.comment span').text(' '+ result.commented)
             }
         }
@@ -258,24 +294,16 @@ $(document).on('click','.delete-comment',function(e){
         }
     })
 })
-const createComment = ({user,content,time,comment_id})=>{
+const createComment = ({user,content,time,comment_id,avatarUrl})=>{
     let current_user = window.CURRENT_USER ? window.CURRENT_USER.username : ''
     return [
         '<div class="feed_item" data-comment-id=', comment_id ,'>',
+        '<a href="/user/', user ,'"><img class="avatar" src="', avatarUrl ,'">','</a>',
+        '<div class="block">',
         '<a class="name" target="_blank" href="/user/', user,'">', user ,':</a>',
         '<span class="content" >', content, '</span>',
+        '</div>',
         '<div><span class="time">', time,
         (user == current_user) ? '</span> <a class="delete-comment" href="#">删除</a></div>' : '',
         '</div>'].join('')
 }
-
-$(document).on('click','.sidenav',function(e){
-    let url = $(e.target).attr('id');
-    $.ajax({
-        url,
-        type: 'get',
-        success(dom){
-            $('.container article').html(dom);
-        }
-    })
-})

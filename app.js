@@ -4,10 +4,15 @@ const path = require('path');
 const serve = require('koa-static');
 const session = require('koa-session')
 const flash = require('koa-flash');
-const bodyParser = require('koa-bodyparser');
+//const bodyParser = require('koa-bodyparser');
+const koaBody = require('koa-body')
 const scss= require('koa-scss')
 const app = new Koa;
-app.use(bodyParser());
+app.use(koaBody({
+  multipart: true,
+  strict : false
+}))
+//app.use(bodyParser());
 app.keys = ['some secret hurr1'];
 const CONFIG = {
   key: 'koa:sess', /** (string) cookie key (default is koa:sess) */

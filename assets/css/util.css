@@ -76,9 +76,13 @@ form.well {
   padding: 0 10px; }
   .right .user_info {
     text-align: center;
-    height: 100px;
     background: #f5f5f5;
     border-radius: 2px; }
+    .right .user_info .avatar {
+      margin-top: 10px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%; }
 
 .user_atten {
   margin-top: 5px;
@@ -165,6 +169,13 @@ textarea {
 .wb_info {
   padding: 20px;
   background-color: #fff; }
+  .wb_info .avatar {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    float: left; }
+  .wb_info .post {
+    margin-left: 60px; }
   .wb_info .title {
     display: inline-block;
     font-size: 14px;
@@ -235,7 +246,15 @@ textarea {
       background-color: #eb7350; }
   .feed_box .feed_list .feed_item {
     font-size: 12px;
-    border-bottom: 1px solid #d9d9d9; }
+    border-bottom: 1px solid #d9d9d9;
+    padding: 6px 0;
+    margin: 0 20px;
+    position: relative; }
+    .feed_box .feed_list .feed_item .avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      float: left; }
     .feed_box .feed_list .feed_item .name {
       color: #307d74; }
     .feed_box .feed_list .feed_item .time {
@@ -258,15 +277,45 @@ textarea {
     .setting aside .avatar {
       width: 120px;
       height: 120px;
-      margin-bottom: 10px; }
+      margin-bottom: 10px;
+      border-radius: 50%; }
     .setting aside .sidenav li {
-      padding: 10px;
+      margin: 5px 0;
       cursor: pointer; }
-      .setting aside .sidenav li:hover {
-        background: rgba(255, 255, 255, 0.2); }
+      .setting aside .sidenav li a {
+        display: inline-block;
+        padding: 10px;
+        width: 100%; }
+        .setting aside .sidenav li a:hover {
+          background: rgba(255, 255, 255, 0.2); }
       .setting aside .sidenav li.active {
         background: rgba(255, 255, 255, 0.2); }
   .setting article {
     flex-grow: 1;
     background-color: #fff;
-    padding: 10px 25px 0 0; }
+    padding: 10px; }
+    .setting article form {
+      text-align: center; }
+    .setting article .el-button {
+      margin-top: 10px; }
+  .setting .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden; }
+    .setting .avatar-uploader .el-upload input[type=file] {
+      display: none; }
+    .setting .avatar-uploader .el-upload:hover {
+      border-color: #409EFF; }
+  .setting .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center; }
+  .setting .avatar {
+    width: 178px;
+    height: 178px;
+    display: block; }

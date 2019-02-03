@@ -1,5 +1,6 @@
 const Post = require('../models/post')
 const Comment = require('../models/comment')
+const User = require('../models/user')
 const post = async (ctx)=>{
     let currentUser  = ctx.session.userinfo;
     let cont = ctx.request.body.post.replace(/\s+/g,'')
@@ -21,6 +22,7 @@ const edit = async (ctx)=>{
     let id = ctx.request.query.id
     let username  = ctx.session.userinfo.username;
     let myPosts = await Post.get(username);
+    userinfo = await User.get(username)
     if (id.length == 24){
         let result = await Post.findOne(id)
         if(result){
@@ -28,7 +30,8 @@ const edit = async (ctx)=>{
                 content: result.post,
                 id: id,
                 posts_count: myPosts.length,
-                username
+                username,
+                avatarUrl: userinfo.avatarUrl
             })
         }else{
             return ctx.redirect('/')

@@ -24,9 +24,14 @@
       <% } %>
     </div>
     <div class="wb_info">
-      <a href="/user/<%= post.user %>" class="title"><%= post.user %></a>
-      <div class="time"><%= post.time %></div>
-      <p class="content"><%= post.post %></p>
+      <a href="/user/<%= post.user %>">
+        <img src="<%= post.avatarUrl %>" alt="a" class="avatar">
+      </a>
+      <div class="post">
+          <a href="/user/<%= post.user %>" class="title"><%= post.user %></a>
+          <div class="time"><%= post.time %></div>
+          <p class="content"><%= post.post %></p>
+      </div>
     </div>
     <div class="handle">
       <ul>

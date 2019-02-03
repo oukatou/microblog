@@ -18,7 +18,7 @@ const userposts = async (ctx)=>{
             let id = String(post._id);
             let like = await Like.getOne({likeable_id:id,user: currentUser.username})
             if(like){
-                Object.assign(posts[i],{like_id: like.like_id})
+                Object.assign(post,{like_id: like.like_id})
             }
             if(currentUser){
                 let collect = await Collect.getOne({collectable_id:id,user: currentUser.username})
@@ -28,14 +28,18 @@ const userposts = async (ctx)=>{
             }
         }
     }
+    for(let i=0; i<posts.length; i++){
+        Object.assign(posts[i], {avatarUrl: user.avatarUrl})
+    }
     if(/get_user/.test(ctx.path)){
         layout = false;
     }
     await ctx.render('user_frame',{
         layout,
-        posts: posts,
+        posts,
         posts_count: posts.length,
-        username
+        username,
+        avatarUrl: user.avatarUrl
     })
 }
 

@@ -13,7 +13,8 @@
     <% if(user) {%>
         <script>
             window.CURRENT_USER = {
-                username: '<%= user.username%>'
+                username: '<%= user.username%>',
+                avatarUrl: '<%= user.avatarUrl%>'
             }
         </script>
     <%}%>

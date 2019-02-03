@@ -1,17 +1,21 @@
 const Collect = require('../models/collect')
 const Post = require('../models/post')
 const Like = require('../models/like')
+const User = require('../models/user')
 const collections = async (ctx)=>{
     let currentUser  = ctx.session.userinfo;
     let username = currentUser.username;
     let collections = await Collect.get(username)
     let collected_posts = []
     let layout = 'layout';
+    let user = await User.get(username)
     for(let i = 0; i< collections.length; i++){
         let id = collections[i].collectable_id
         let post = await Post.findOne(id)
         let like = await Like.getOne({likeable_id:id,user: currentUser.username})
         if (post){
+            let user = await User.get(post.user)
+            Object.assign(post, {avatarUrl: user.avatarUrl})
             Object.assign(post,{collect_id:collections[i].collect_id})
             if(like){
                 Object.assign(post,{like_id: like.like_id})
@@ -29,7 +33,8 @@ const collections = async (ctx)=>{
         layout,
         posts: collected_posts,
         posts_count: myPosts.length,
-        username
+        username,
+        avatarUrl: user.avatarUrl
     })
 }
 const collect = async (ctx)=>{

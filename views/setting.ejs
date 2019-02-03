@@ -1,14 +1,35 @@
-<div class="container setting">
-    <aside>
-        <img class="avatar" src="http://t3.qlogo.cn/mbloghead/174b6e7565d31892a44a/120" alt="">
-        <div class="sidenav">
-            <ul>
-                <li id='profile' class="active">基本资料</li>
-                <li id='avatar'>修改头像</li>
-                <li id='password'>修改密码</li>
-                <li id='close'>关闭账号</li>
-            </ul>
+<html>
+    <%- include('head') %>
+    <body>
+        <%- include('header')%>   
+        <div id="app" class="container">
+            <% if(success) { %>
+                <div class='alert alert-success'>
+                    <%= success %>
+                </div>
+            <% } %>
+            <% if(error) { %>
+                <div class='alert alert-danger'>
+                    <%= error %>
+                </div>
+            <% } %>
+            <div class="container setting">
+                <aside>
+                    <img class="avatar" src="<%= avatarUrl%>" alt="avatar">
+                    <div class="sidenav">
+                        <ul>
+                            <li :class="{active: isProfilepage}"><a href="/profile">基本资料</a></li>
+                            <li :class="{active: isAvatarpage}"><a href="/avatar">修改头像</a></li>
+                            <li :class="{active: isPasswordpage}"><a href="/password">修改密码</a></li>
+                            <li :class="{active: isClosepage}"><a href="/close">关闭账号</a></li>
+                        </ul>
+                    </div>
+                </aside>
+                <article>
+                    <%- body %>   
+                </article>
+            </div>
         </div>
-    </aside>
-    <article>2</article>
-</div>
+        <script src='/js/util.js'></script>
+    </body>
+</html>

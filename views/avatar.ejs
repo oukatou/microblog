@@ -1,1 +1,13 @@
-<div>avatar</div>
+<form action="/avatarSave" method="post">
+    <el-upload
+        class="avatar-uploader"
+        action="avatar"
+        :show-file-list="false"
+        :on-success="handleAvatarSuccess"
+        :before-upload="beforeAvatarUpload">
+        <img v-if="avatarUrl" :src="avatarUrl" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        <input type="hidden" name="avatarName" id="avatarName">
+    </el-upload>
+    <el-button size="small" type="primary" native-type="submit">保存</el-button>
+</form>

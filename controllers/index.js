@@ -1,12 +1,14 @@
 const Post = require('../models/post')
 const Like = require('../models/like')
 const Collect = require('../models/collect')
+const User = require('../models/user')
 const main = async ctx => {
     let posts = await Post.get();
     let currentUser
     let username = null
     let user_posts = []
     let layout = 'layout';
+    let userinfo
     if (ctx.session.userinfo){
         currentUser  = ctx.session.userinfo;
         username = currentUser.username;
@@ -17,20 +19,28 @@ const main = async ctx => {
             let like = await Like.getOne({likeable_id:id,user: username})
             let collect = await Collect.getOne({collectable_id:id,user: username})
             if(like){
-                Object.assign(posts[i],{like_id: like.like_id})
+                Object.assign(post,{like_id: like.like_id})
             }
             if(collect){
-                Object.assign(posts[i],{collect_id: collect.collect_id})
+                Object.assign(post,{collect_id: collect.collect_id})
             }
         }
-    }if (/all/.test(ctx.path)){
+        userinfo = await User.get(currentUser.username)
+    }
+    for(let i=0; i<posts.length; i++){
+        let post = posts[i];
+        let user = await User.get(post.user)
+        Object.assign(posts[i], {avatarUrl: user.avatarUrl})
+    }
+    if (/all/.test(ctx.path)){
         layout = false;
     }
     await ctx.render('index', {
         layout,
         posts,
         posts_count: user_posts.length,
-        username
+        username,
+        avatarUrl: userinfo ? userinfo.avatarUrl : ''
     })
 }
 module.exports = {

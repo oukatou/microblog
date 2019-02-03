@@ -1,7 +1,7 @@
 const User = require('../models/user')
 const register = async ctx=>{
    await ctx.render('reg',{
-    layout: 'header'
+    layout: 'header_layout'
 })
 }
 const doregister = async ctx=>{

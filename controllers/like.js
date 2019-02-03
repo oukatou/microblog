@@ -17,6 +17,8 @@ const likes = async (ctx)=>{
         let id = likes[i].likeable_id
         let post = await Post.findOne(id)
         if(currentUser && post){
+            let user = await User.get(post.user)
+            Object.assign(post, {avatarUrl: user.avatarUrl})
             let collect = await Collect.getOne({collectable_id:id,user: currentUser.username})
             let like = await Like.getOne({likeable_id:id,user: currentUser.username})
             if(collect){
@@ -24,9 +26,11 @@ const likes = async (ctx)=>{
             }
             if(like){
                 Object.assign(post,{like_id: like.like_id})
-            }
-        }
-        else if(!post){
+            } 
+        }else if(post){
+            let user = await User.get(post.user)
+            Object.assign(post, {avatarUrl: user.avatarUrl})
+        }else if(!post){
             post = likes[i]
             Object.assign(post,{username, username})
         }
@@ -40,7 +44,8 @@ const likes = async (ctx)=>{
         layout,
         posts: liked_posts,
         posts_count: myPosts.length,
-        username
+        username,
+        avatarUrl: user.avatarUrl
     })
 }
 const like = async (ctx)=>{

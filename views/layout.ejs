@@ -45,6 +45,7 @@
                 <div class='right'>
                     <% if (user && user.username == username) {%>
                     <div class="user_info">
+                        <img class="avatar" src="<%= avatarUrl%>" alt="">
                         <div class="name"><%= user.username %></div>
                         <div class="user_atten">
                             <ul>
@@ -56,6 +57,7 @@
                     </div>
                     <% }else if (username) {%>
                         <div class="user_info">
+                            <img class="avatar" src="<%= avatarUrl%>" alt="">
                             <div class="name"><%= username %></div>
                             <div class="user_atten">
                                 <ul>
