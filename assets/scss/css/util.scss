@@ -18,19 +18,31 @@ form.well{
   padding: 0;
 }
 
-.middle, .leftnav, .right {
+#app{
+  display: flex;
+}
+
+.navbar-right{
+  float: right;
+  margin: 0;
+  li{
+    float: left;
+    a{
+      padding: 15px;
+    }
+  }
+}
+
+.navbar-header{
   float: left;
-  position: relative;
 }
 
 .middle {
-  width: 100%;
-  padding: 0 250px 0 200px;
+  flex: 1;
 }
 
 .leftnav {
-  width: 200px;
-  margin-left: -100%;
+  flex: 0 0  20%;
   ul li {
     line-height: 34px;
     height: 34px;
@@ -54,8 +66,7 @@ form.well{
 }
 
 .right {
-  width: 250px;
-  margin-left: -250px;
+  flex: 0 0 25%;
   padding: 0 10px;
   .user_info {
     text-align: center;
@@ -300,6 +311,7 @@ textarea {
 }
 .setting{
   display: flex;
+  flex-grow: 1;
   aside{
     .avatar{
       width: 120px;

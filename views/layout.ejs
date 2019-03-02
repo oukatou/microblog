@@ -20,9 +20,6 @@
                         <%= error %>
                     </div>
                 <% } %>
-                <div class='middle'>
-                    <%- body %>   
-                </div>
                 <div class='leftnav'>
                     <ul>
                         <% if (user && user.username == username ) {%>
@@ -41,6 +38,9 @@
                             <li id='like' :class="{active: isLikepage}"><a href="/get_like/<%= username%>"><span>他的赞</span></a></li>
                         <% } %>    
                     </ul>
+                </div>
+                <div class='middle'>
+                    <%- body %>   
                 </div>
                 <div class='right'>
                     <% if (user && user.username == username) {%>
